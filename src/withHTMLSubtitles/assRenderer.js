@@ -1,5 +1,5 @@
-var JASSUBModule = require('../../vendor/jassub/jassubBundle');
-var jassubAssets = require('../../vendor/jassub/jassubAssets');
+var JASSUBModule = require('@mrcanelas/jassub-embedded/dist/jassubBundle');
+var jassubAssets = require('@mrcanelas/jassub-embedded/dist/jassubAssets');
 
 var JASSUB = JASSUBModule.default || JASSUBModule;
 
@@ -114,8 +114,9 @@ function createASSRenderer(options) {
 
         assetUrls = {
             workerUrl: createBlobUrl([jassubAssets.workerSource], 'text/javascript'),
-            wasmUrl: createBlobUrl([decodeBase64(jassubAssets.wasmBase64)], 'application/wasm'),
-            defaultFontUrl: createBlobUrl([decodeBase64(jassubAssets.defaultFontBase64)], 'font/woff2')
+            wasmUrl: createBlobUrl([decodeBase64(jassubAssets.wasmBinary)], 'application/wasm'),
+            wasmModernBinary: createBlobUrl([decodeBase64(jassubAssets.wasmModernBinary)], 'application/wasm'),
+            defaultFontUrl: createBlobUrl([decodeBase64(jassubAssets.defaultFont)], 'font/woff2')
         };
 
         return assetUrls;
@@ -183,7 +184,7 @@ function createASSRenderer(options) {
             subContent: subtitleText,
             workerUrl: urls.workerUrl,
             wasmUrl: urls.wasmUrl,
-            modernWasmUrl: urls.wasmUrl,
+            modernWasmUrl: urls.wasmModernBinary,
             availableFonts: {
                 'liberation sans': urls.defaultFontUrl
             },
